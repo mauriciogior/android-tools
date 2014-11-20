@@ -3,7 +3,8 @@
 var shell				= require('shelljs')
 	, argumentParser 	= require('node-argument-parser');
 
-var Core 			= require('./lib/core').get()
+var Constants 		= require('./lib/constants.js').get()
+	, Core 			= require('./lib/core').get()
 	, toolsCheck 	= require('./lib/tools-check')
 	, argumentCheck = require('./lib/argument-check');
 
@@ -17,18 +18,19 @@ AndroidTools.prototype = {
 	 * After the definition, the Core will be called, providing a self reference.
 	 */
 	init : function() {
-		var argv = argumentParser.parse('./argument.json', process);
+
+		var argv = argumentParser.parse(__dirname + '/argument.json', process);
 
 		var hasTools = toolsCheck.run();
 
 		if(hasTools.err) {
-			this.die(hasTools.message);
+			this.die(hasTools.message, Constants.SHELL.FAIL);
 		}
 
 		var instance = argumentCheck.run(argv);
 
 		if(instance.err) {
-			this.die(instance.message);
+			this.die(instance.message, Constants.SHELL.FAIL);
 		}
 
 		var core = new Core(instance, this);
@@ -39,10 +41,10 @@ AndroidTools.prototype = {
 	 * Finish the execution of the program with the given message.
 	 * @param String message
 	 */
-	die : function(message) {
+	die : function(message, code) {
 		console.log(message);
 
-		shell.exit(1);
+		shell.exit(code);
 	}
 
 };

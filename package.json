@@ -5,7 +5,9 @@
 	"private": true,
 	"dependencies": {
 		"shelljs": "0.3.x",
-		"node-argument-parser": "0.1.0"
+		"node-argument-parser": "0.1.0",
+		"xml2js": "0.4.4",
+		"async": "0.9.0"
 	},
 	"bin": {
 		"android-tools": "./android-tools.js"
