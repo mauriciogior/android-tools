@@ -1,0 +1,20 @@
+{
+	"arguments" : [
+		{
+			// build application
+			"full" : "build", // full version (e.g. --build)
+			"short" : "b", // short version (e.g. -b)
+			"value" : true, // expects value (e.g. --build /path/to/file)
+			"description" : "File to build" // for help display
+		},
+		{
+			"full" : "release",
+			"short" : "r",
+			"description" : "Is a release version?"
+		}
+	],
+	"defaults" : {
+		"help" : true, // displays help on --help
+		"helpExtras" : "Documentation can be fount at" // extras (optional)
+	}
+}
