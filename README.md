@@ -23,7 +23,7 @@ This tool has the following dependencies:
 + ant
 + android
 
-Both `adb` and `android` are available on the Android SDK folder under `platform-tools` and `tools` respectively. The `ant` tool usually cames with the JRE. If you don't have it, you must install it.
+Both `adb` and `android` are available inside the Android SDK folder under `platform-tools` and `tools` respectively. The `ant` tool usually cames with the JRE. If you don't have it, you must install it.
 
 You should be able to run all of those tools directly on your shell, so you need to set the right path on your `.bash_profile`:
 
