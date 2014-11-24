@@ -13,7 +13,7 @@ To install **Android Tools** you need to execute the following command:
 npm install android-tools -g
 ```
 
-*Please note that this repository is not published on `npm` yet, so you need to clone this repository and, instead of running `npm install android-tools -g`, you should run `npm install ./ -g` on the root directory of this repository.*
+*Please note that this repository is not published on `npm` yet, so you need to clone this repository and, instead of running `npm install android-tools -g`, you should run `npm install . -g` on the root directory of this repository.*
 
 ### How it works
 
