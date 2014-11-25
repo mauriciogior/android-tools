@@ -1,51 +1,52 @@
 #!/usr/bin/env node
 
-var shell				= require('shelljs')
-	, argumentParser 	= require('node-argument-parser');
+var shell           = require('shelljs')
+    , argv          = require('minimist')(process.argv.slice(2));
 
-var Constants 		= require('./lib/constants.js').get()
-	, Core 			= require('./lib/core').get()
-	, toolsCheck 	= require('./lib/tools-check')
-	, argumentCheck = require('./lib/argument-check');
+var Constants       = require('./lib/constants.js').get()
+    , Core          = require('./lib/core').get()
+    , toolsCheck    = require('./lib/tools-check')
+    , argumentCheck = require('./lib/argument-check');
+
+var stream = process.stderr;
 
 var AndroidTools = function() {};
 
 AndroidTools.prototype = {
 
-	/**
-	 * Begins the execution of the tool.
-	 * This function is a 'filter' to determine which operation to execute.
-	 * After the definition, the Core will be called, providing a self reference.
-	 */
-	init : function() {
+    /**
+     * Begins the execution of the tool.
+     * This function is a 'filter' to determine which operation to execute.
+     * After the definition, the Core will be called, providing a self reference.
+     */
+    init : function() {
 
-		var argv = argumentParser.parse(__dirname + '/argument.json', process);
+        var hasTools = toolsCheck.run();
 
-		var hasTools = toolsCheck.run();
+        if(hasTools.err) {
+            this.die(hasTools.message, Constants.SHELL.FAIL);
+        }
 
-		if(hasTools.err) {
-			this.die(hasTools.message, Constants.SHELL.FAIL);
-		}
+        var instance = argumentCheck.run(argv);
 
-		var instance = argumentCheck.run(argv);
+        if(instance.err) {
+            this.die(instance.message, Constants.SHELL.FAIL);
+        }
 
-		if(instance.err) {
-			this.die(instance.message, Constants.SHELL.FAIL);
-		}
+        var core = new Core(instance, this);
+        core.start();
+    },
 
-		var core = new Core(instance, this);
-		core.start();
-	},
+    /**
+     * Finish the execution of the program with the given message.
+     * @param String message
+     */
+    die : function(message, code) {
+        stream.clearLine();
+        stream.write(message + '\n');
 
-	/**
-	 * Finish the execution of the program with the given message.
-	 * @param String message
-	 */
-	die : function(message, code) {
-		console.log(message);
-
-		shell.exit(code);
-	}
+        shell.exit(code);
+    }
 
 };
 
