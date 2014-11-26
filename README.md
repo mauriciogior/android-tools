@@ -36,6 +36,12 @@ This should do the trick.
 
 Want to test it?
 
+To create a new Android project (or configure an existing one), run:
+
+```shell
+android-tools init
+```
+
 To build an app, go to the application directory and run:
 
 ```shell
