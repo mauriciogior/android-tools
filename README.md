@@ -64,6 +64,17 @@ The application can only build, install, execute and log the application. It is 
 
 If you need more help, you can always execute `android-tools --help`.
 
+```shell
+usage: android-tools [init, build, run] 
+optional parameters: 
+    run [--logcat]
+
+examples:
+    android-tools init
+    android-tools build
+    android-tools run --logcat
+```
+
 ## Colaboration
 
 If you are interested on this project, please send me an email or just simply fork it and make a pull request.
